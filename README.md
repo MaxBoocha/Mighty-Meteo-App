@@ -1,4 +1,4 @@
-# mightymeteomap
+# mightymeteoapp
 
 A new Flutter project.
 
