@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "639068635889",
+    "project_id": "mighty-meteo-app",
+    "storage_bucket": "mighty-meteo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639068635889:android:fde51cc587a33d430f5f50",
+        "android_client_info": {
+          "package_name": "com.mightymeteoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639068635889-et0g87h38cu3nd48k4p1sbvm7mh15p70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXJKPKMknkIDIf35ujy3kVZdTdSnV1wUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639068635889-et0g87h38cu3nd48k4p1sbvm7mh15p70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
