@@ -10,13 +10,21 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Profile Page'),
-          onPressed: () {
-            Get.toNamed("/profile");
-          },
-        ),
+      body: Row(
+        children: [
+          ElevatedButton(
+            child: const Text('Profile Page'),
+            onPressed: () {
+              Get.toNamed("/profile");
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Meteo Page'),
+            onPressed: () {
+              Get.toNamed("/meteo");
+            },
+          )
+        ],
       ),
     );
   }

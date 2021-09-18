@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mightymeteomap/screens/wrapper.dart';
 import 'package:get/get.dart';
 import 'package:mightymeteomap/screens/profile/profile.dart';
+import 'package:mightymeteomap/screens/meteo/meteo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       home: const Wrapper(),
       getPages: [
         GetPage(name: "/profile", page: () => const Profile()),
+        GetPage(name: "/meteo", page: () => const Meteo()),
       ],
     );
   }
