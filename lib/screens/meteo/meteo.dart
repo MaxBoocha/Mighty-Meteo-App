@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mightymeteomap/screens/meteo/location.dart';
-import 'package:mightymeteomap/screens/meteo/test.dart';
 
 class Meteo extends StatelessWidget {
   const Meteo({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class Meteo extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Test(),
+          Location(),
           ElevatedButton(
             onPressed: () {
               Get.back();

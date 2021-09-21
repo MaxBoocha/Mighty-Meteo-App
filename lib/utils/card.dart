@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:mightymeteomap/controller/testmet.dart';
+import 'package:mightymeteomap/controller/location_controller.dart';
 
-class Test extends StatelessWidget {
-  Test({Key? key}) : super(key: key);
-
-  final TestController c = Get.put(TestController());
+class MyCard extends StatelessWidget {
+  MyCard({Key? key}) : super(key: key);
+  final LocationController c = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +13,7 @@ class Test extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Obx(() => Text("${c.getName()}")),
               Obx(() => Text("Temp : ${c.getTemp()}")),
               Obx(() => Text("TempMin : ${c.getTempMin()}")),
               Obx(() => Text("TempMax : ${c.getTempMax()}")),
