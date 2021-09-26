@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mightymeteomap/controller/location_controller.dart';
 import 'package:mightymeteomap/utils/card.dart';
+import 'package:mightymeteomap/utils/forecast_card.dart';
 
 class MyCustomForm extends StatelessWidget {
   MyCustomForm({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class MyCustomForm extends StatelessWidget {
             ElevatedButton(
               child: const Icon(Icons.search, size: 14),
               onPressed: () {
-                c.getWeatherDataFromCity(c.getSearchTown());
+                c.searchFromCity(c.getSearchTown());
               },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
@@ -58,6 +59,16 @@ class Location extends StatelessWidget {
             children: <Widget>[
               MyCustomForm(),
               MyCard(),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyForecastCard(day: 1),
+                    MyForecastCard(day: 2),
+                    MyForecastCard(day: 3)
+                  ],
+                ),
+              ),
               ElevatedButton(
                 child: const Icon(Icons.gps_fixed, size: 14),
                 onPressed: () {

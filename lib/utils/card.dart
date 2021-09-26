@@ -13,13 +13,27 @@ class MyCard extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Obx(() => Text("${c.getName()}")),
-              Obx(() => Text("Temp : ${c.getTemp()}")),
-              Obx(() => Text("TempMin : ${c.getTempMin()}")),
-              Obx(() => Text("TempMax : ${c.getTempMax()}")),
-              Obx(() => Text("Humidité : ${c.getHumi()}")),
-              Obx(() => Icon(c.getIconData(), size: 24.0, color: Colors.black)),
-              Obx(() => Text("Temps : ${c.getWeather()}"))
+              Obx(() => Text(
+                    "${c.getName()}",
+                    style: const TextStyle(fontSize: 20),
+                  )),
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                          padding:
+                              const EdgeInsets.only(right: 14.0, bottom: 11.0),
+                          child: Icon(c.getIconData(0),
+                              size: 35.0, color: Colors.black)),
+                      Text("${c.getTemp(0)}°C",
+                          style: const TextStyle(fontSize: 10))
+                    ],
+                  )),
+              Obx(() => Text(
+                  "Min : ${c.getTempMin(0)}°C Max : ${c.getTempMax(0)}°C",
+                  style: const TextStyle(fontSize: 10))),
+              Obx(() => Text("Humidité : ${c.getHumi(0)}%",
+                  style: const TextStyle(fontSize: 10))),
             ]));
   }
 }
