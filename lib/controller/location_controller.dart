@@ -5,14 +5,19 @@ import 'dart:convert';
 import 'package:mightymeteomap/utils/weather_icon_mapper.dart';
 import 'package:geolocator/geolocator.dart';
 
+// Controller GetX qui gérer la récupération d'information et les variables à afficher dans la page
 class LocationController extends GetxController {
+  // variable global pour les appels api
+  final String _apiUrl = "http://api.openweathermap.org";
+  final String _apiKey = "04861993e066f5b8aaffe6988957c264";
+
+  // variable Getx
   final RxDouble _latitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
   final RxString _name = "".obs;
   final RxString _searchTown = "".obs;
-  final String _apiUrl = "http://api.openweathermap.org";
-  final String _apiKey = "04861993e066f5b8aaffe6988957c264";
 
+  // fonction GetX pour récupérer les valeurs à afficher sur la page
   changeLatitude(value) => _latitude.value = value;
   changeLongitude(value) => _longitude.value = value;
   changeName(value) => _name.value = value;
@@ -23,12 +28,14 @@ class LocationController extends GetxController {
   getName() => _name.value;
   getSearchTown() => _searchTown.value;
 
+  // variable Getx
   final List<RxDouble> _temp = List.generate(4, (index) => 0.0.obs);
   final List<RxDouble> _tempMin = List.generate(4, (index) => 0.0.obs);
   final List<RxDouble> _tempMax = List.generate(4, (index) => 0.0.obs);
   final List<RxInt> _humi = List.generate(4, (index) => 0.obs);
   final List<RxString> _icon = List.generate(4, (index) => "".obs);
 
+  // fonction GetX pour récupérer les valeurs à afficher sur la page
   changeTemp(value, index) => _temp[index].value = value - 273.15;
   changeTempMin(value, index) => _tempMin[index].value = value - 273.15;
   changeTempMax(value, index) => _tempMax[index].value = value - 273.15;
@@ -44,88 +51,85 @@ class LocationController extends GetxController {
   getHumi(index) => _humi[index].value;
   getIcon(index) => _icon[index].value;
 
+  // fonction qui es appelé à l'ouverture de la page météo
   @override
   void onInit() async {
     await _determinePosition();
     searchByLocation();
-    //await getWeatherDataFromLocation();
     super.onInit();
   }
 
+  // fonction qui récupére la météo du jour et prévisions météo selon ces données GPS
   void searchByLocation() async {
     await getWeatherDataFromLocation();
     await getForecastFromLocation();
   }
 
+  // fonction qui récupére la météo du jour et prévisions météo selon le nom d'une ville
   void searchFromCity(String cityName) async {
     await getWeatherDataFromCity(cityName);
     await getForecastFromCity(cityName);
   }
 
+  // récupération des prévisions météo selon des données GPS sur 3 jours
   Future<void> getForecastFromLocation() async {
     final url =
         '$_apiUrl/data/2.5/forecast/?lat=$_latitude&lon=$_longitude&appid=$_apiKey&cnt=25';
-    print(url);
     final http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);
-      print("Forecast : $res");
-      changeTemp(res['list'][8]['main']['temp'], 1);
-      changeTempMin(res['list'][8]['main']['temp_min'], 1);
-      changeTempMax(res['list'][8]['main']['temp_max'], 1);
-      changeHumi(res['list'][8]['main']['humidity'], 1);
-      changeIcon(res['list'][8]['weather'][0]['icon'], 1);
-      changeTemp(res['list'][16]['main']['temp'], 2);
-      changeTempMin(res['list'][16]['main']['temp_min'], 2);
-      changeTempMax(res['list'][16]['main']['temp_max'], 2);
-      changeHumi(res['list'][16]['main']['humidity'], 2);
-      changeIcon(res['list'][16]['weather'][0]['icon'], 2);
-      changeTemp(res['list'][24]['main']['temp'], 3);
-      changeTempMin(res['list'][24]['main']['temp_min'], 3);
-      changeTempMax(res['list'][24]['main']['temp_max'], 3);
-      changeHumi(res['list'][24]['main']['humidity'], 3);
-      changeIcon(res['list'][24]['weather'][0]['icon'], 3);
+      for (int i = 1; i < 4; i += 1) {
+        changeTemp(res['list'][8 * i]['main']['temp'], i);
+        changeTempMin(res['list'][8 * i]['main']['temp_min'], i);
+        changeTempMax(res['list'][8 * i]['main']['temp_max'], i);
+        changeHumi(res['list'][8 * i]['main']['humidity'], i);
+        changeIcon(res['list'][8 * i]['weather'][0]['icon'], i);
+      }
     } else {
-      print('An error occured ${response.statusCode}');
       // error
+      changeName("Erreur");
+      for (int i = 1; i < 4; i += 1) {
+        changeTemp(0, i);
+        changeTempMin(0, i);
+        changeTempMax(0, i);
+        changeHumi(0, i);
+        changeIcon("01d", i);
+      }
     }
   }
 
+  // récupération des prévisions météo selon le nom d'une ville sur 3 jours
   Future<void> getForecastFromCity(String cityName) async {
     final url = '$_apiUrl/data/2.5/forecast/?q=$cityName&appid=$_apiKey&cnt=25';
-    print(url);
     final http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);
-      print("Forecast : $res");
-      changeTemp(res['list'][8]['main']['temp'], 1);
-      changeTempMin(res['list'][8]['main']['temp_min'], 1);
-      changeTempMax(res['list'][8]['main']['temp_max'], 1);
-      changeHumi(res['list'][8]['main']['humidity'], 1);
-      changeIcon(res['list'][8]['weather'][0]['icon'], 1);
-      changeTemp(res['list'][16]['main']['temp'], 2);
-      changeTempMin(res['list'][16]['main']['temp_min'], 2);
-      changeTempMax(res['list'][16]['main']['temp_max'], 2);
-      changeHumi(res['list'][16]['main']['humidity'], 2);
-      changeIcon(res['list'][16]['weather'][0]['icon'], 2);
-      changeTemp(res['list'][24]['main']['temp'], 3);
-      changeTempMin(res['list'][24]['main']['temp_min'], 3);
-      changeTempMax(res['list'][24]['main']['temp_max'], 3);
-      changeHumi(res['list'][24]['main']['humidity'], 3);
-      changeIcon(res['list'][24]['weather'][0]['icon'], 3);
+      for (int i = 1; i < 4; i += 1) {
+        changeTemp(res['list'][8 * i]['main']['temp'], i);
+        changeTempMin(res['list'][8 * i]['main']['temp_min'], i);
+        changeTempMax(res['list'][8 * i]['main']['temp_max'], i);
+        changeHumi(res['list'][8 * i]['main']['humidity'], i);
+        changeIcon(res['list'][8 * i]['weather'][0]['icon'], i);
+      }
     } else {
-      print('An error occured ${response.statusCode}');
       // error
+      changeName("Erreur");
+      for (int i = 1; i < 4; i += 1) {
+        changeTemp(0, i);
+        changeTempMin(0, i);
+        changeTempMax(0, i);
+        changeHumi(0, i);
+        changeIcon("01d", i);
+      }
     }
   }
 
+  // récupération de la météo du jour selon le nom d'une ville
   Future<void> getWeatherDataFromCity(String cityName) async {
     final url = '$_apiUrl/data/2.5/weather?q=$cityName&appid=$_apiKey';
-    print(url);
     final http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);
-      print(res);
       changeTemp(res['main']['temp'], 0);
       changeTempMin(res['main']['temp_min'], 0);
       changeTempMax(res['main']['temp_max'], 0);
@@ -133,19 +137,23 @@ class LocationController extends GetxController {
       changeIcon(res['weather'][0]['icon'], 0);
       changeName(cityName);
     } else {
-      print('An error occured ${response.statusCode}');
       // error
+      changeName("Erreur");
+      changeTemp(0, 0);
+      changeTempMin(0, 0);
+      changeTempMax(0, 0);
+      changeHumi(0, 0);
+      changeIcon("01d", 0);
     }
   }
 
+  // récupération de la météo du jour selon des données GPS
   Future<void> getWeatherDataFromLocation() async {
     final url =
         '$_apiUrl/data/2.5/weather?lat=$_latitude&lon=$_longitude&appid=$_apiKey';
-    print('fetching $url');
     final http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);
-      //print(res);
       changeTemp(res['main']['temp'], 0);
       changeTempMin(res['main']['temp_min'], 0);
       changeTempMax(res['main']['temp_max'], 0);
@@ -153,11 +161,17 @@ class LocationController extends GetxController {
       changeIcon(res['weather'][0]['icon'], 0);
       changeName(res['name']);
     } else {
-      print('An error occured ${response.statusCode}');
       // error
+      changeName("Erreur");
+      changeTemp(0, 0);
+      changeTempMin(0, 0);
+      changeTempMax(0, 0);
+      changeHumi(0, 0);
+      changeIcon("01d", 0);
     }
   }
 
+  // fonction qui permet de recupérer l'icone contenue dans une font selon un id
   IconData getIconData(index) {
     switch (_icon[index].value) {
       case '01d':
@@ -199,6 +213,8 @@ class LocationController extends GetxController {
     }
   }
 
+  // fonction qui permet d'avoir la position GPS de l'utilisateur (longitude et latitude)
+  // popup qui demande l'autorisation de l'utilisateur d'accéder à sa position GPS
   Future<void> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;

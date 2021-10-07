@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 /// Has all weather conditions specified by open weather maps API
 /// https://openweathermap.org/weather-conditions
 // hex values and ttf file from https://erikflowers.github.io/weather-icons/
+
+// Class qui gére le mapping des icones contenues dans la font à un nom plus facile à utiliser plus tard
 class WeatherIcons {
   static const IconData clearDay = IconData(0xf00d, fontFamily: 'WeatherIcons');
   static const IconData clearNight =

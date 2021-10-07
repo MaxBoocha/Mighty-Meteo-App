@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mightymeteomap/controller/location_controller.dart';
 
+// Card qui sers à afficher les informations de la météo du jour
 class MyCard extends StatelessWidget {
   MyCard({Key? key}) : super(key: key);
   final LocationController c = Get.find();

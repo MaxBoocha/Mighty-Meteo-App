@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mightymeteomap/controller/location_controller.dart';
 
+// Card qui sers à afficher les informations des prévisions météo
 class MyForecastCard extends StatelessWidget {
   final int day;
   MyForecastCard({Key? key, this.day = 0}) : super(key: key);
@@ -14,7 +15,7 @@ class MyForecastCard extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("N+$day"),
+              Text("J+$day"),
               Obx(() => Text(
                     "${c.getName()}",
                   )),

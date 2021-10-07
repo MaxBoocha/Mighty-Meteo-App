@@ -4,6 +4,7 @@ import 'package:mightymeteomap/controller/location_controller.dart';
 import 'package:mightymeteomap/utils/card.dart';
 import 'package:mightymeteomap/utils/forecast_card.dart';
 
+// Champ de texte pour rechercher une ville
 class MyCustomForm extends StatelessWidget {
   MyCustomForm({Key? key}) : super(key: key);
 
@@ -45,6 +46,7 @@ class MyCustomForm extends StatelessWidget {
   }
 }
 
+// Page qui organise les fonctionnalités et informations météorologique
 class Location extends StatelessWidget {
   Location({Key? key}) : super(key: key);
 
@@ -72,7 +74,7 @@ class Location extends StatelessWidget {
               ElevatedButton(
                 child: const Icon(Icons.gps_fixed, size: 14),
                 onPressed: () {
-                  c.getWeatherDataFromLocation();
+                  c.searchByLocation();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
