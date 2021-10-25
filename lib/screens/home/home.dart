@@ -13,9 +13,9 @@ class Home extends StatelessWidget {
       body: Row(
         children: [
           ElevatedButton(
-            child: const Text('Profile Page'),
+            child: const Text('Login Page'),
             onPressed: () {
-              Get.toNamed("/profile");
+              Get.toNamed("/login");
             },
           ),
           ElevatedButton(
