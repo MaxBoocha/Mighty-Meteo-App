@@ -23,6 +23,10 @@ class UserController extends GetxController {
   changeErrorMessage(errorMessage) => _errorMessage.value = errorMessage;
   getErrorMessage() => _errorMessage.value;
 
+  final RxBool _isVerified = false.obs;
+  changeVerified(verified) => _isVerified.value = verified;
+  getVerified() => _isVerified.value;
+
   User? _user;
   changeUser(User? user) => _user = user;
   getUser() => _user;
@@ -53,6 +57,8 @@ class UserController extends GetxController {
       changeCurrentUser(user);
       changeName(user.displayName);
       changeEmail(user.email);
+      changePhotoUrl(user.photoURL);
+      changeVerified(user.emailVerified);
       Get.toNamed("/profile");
     }
     return firebaseApp;
@@ -79,6 +85,7 @@ class UserController extends GetxController {
         changeName(user.displayName);
         changeEmail(user.email);
         changePhotoUrl(user.photoURL);
+        changeVerified(user.emailVerified);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -110,6 +117,7 @@ class UserController extends GetxController {
         changeName(user.displayName);
         changeEmail(user.email);
         changePhotoUrl(user.photoURL);
+        changeVerified(user.emailVerified);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -131,6 +139,7 @@ class UserController extends GetxController {
       changeName(refreshedUser.displayName);
       changeEmail(refreshedUser.email);
       changePhotoUrl(refreshedUser.photoURL);
+      changeVerified(refreshedUser.emailVerified);
     }
 
     return refreshedUser;

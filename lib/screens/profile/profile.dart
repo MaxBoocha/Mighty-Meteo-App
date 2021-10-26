@@ -28,6 +28,47 @@ class ProfilePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText1,
                 )),
             const SizedBox(height: 16.0),
+            Obx(() => c.getVerified()
+                ? Text(
+                    'Email verified',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: Colors.green),
+                  )
+                : Text(
+                    'Email not verified',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: Colors.red),
+                  )),
+            const SizedBox(height: 16.0),
+            c.getSending()
+                ? const CircularProgressIndicator()
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          c.changeSending(true);
+                          await c.getCurrentUser().sendEmailVerification();
+                          c.changeSending(false);
+                        },
+                        child: const Text('Verify email'),
+                      ),
+                      const SizedBox(width: 8.0),
+                      IconButton(
+                        icon: const Icon(Icons.refresh),
+                        onPressed: () async {
+                          User? user = await c.refreshUser(c.getCurrentUser());
+                          if (user != null) {
+                            c.changeCurrentUser(user);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
             const SizedBox(height: 16.0),
             c.getSignInOut()
                 ? const CircularProgressIndicator()
