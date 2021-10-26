@@ -82,6 +82,12 @@ class Login extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Obx(() => Text(
+                                "${c.getErrorMessage()}",
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ),
+                              )),
                           const SizedBox(height: 24.0),
                           c.getProcess()
                               ? const CircularProgressIndicator()
@@ -143,7 +149,6 @@ class Login extends StatelessWidget {
                 ),
               );
             }
-
             return const Center(
               child: CircularProgressIndicator(),
             );

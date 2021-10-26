@@ -15,6 +15,14 @@ class UserController extends GetxController {
   changePassword(password) => _name.value = password;
   getPassword() => _password.value;
 
+  final RxString _photoUrl = "https://i.imgur.com/VAnsyjv.jpeg".obs;
+  changePhotoUrl(photoUrl) => _photoUrl.value = photoUrl;
+  getPhotoUrl() => _photoUrl.value;
+
+  final RxString _errorMessage = "".obs;
+  changeErrorMessage(errorMessage) => _errorMessage.value = errorMessage;
+  getErrorMessage() => _errorMessage.value;
+
   User? _user;
   changeUser(User? user) => _user = user;
   getUser() => _user;
@@ -64,18 +72,22 @@ class UserController extends GetxController {
       );
       user = userCredential.user;
       await user!.updateDisplayName(name);
+      await user.updatePhotoURL('https://i.imgur.com/KyVwI6r.jpeg');
       await user.reload();
-      changeName(user.displayName);
-      changeEmail(user.email);
       user = auth.currentUser;
+      if (user != null) {
+        changeName(user.displayName);
+        changeEmail(user.email);
+        changePhotoUrl(user.photoURL);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        changeErrorMessage('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        changeErrorMessage('The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      changeErrorMessage(e);
     }
     return user;
   }
@@ -93,15 +105,17 @@ class UserController extends GetxController {
         password: password,
       );
       user = userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
-      }
+      user = auth.currentUser;
       if (user != null) {
         changeName(user.displayName);
         changeEmail(user.email);
+        changePhotoUrl(user.photoURL);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        changeErrorMessage('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        changeErrorMessage('Wrong password provided.');
       }
     }
 
@@ -116,6 +130,7 @@ class UserController extends GetxController {
     if (refreshedUser != null) {
       changeName(refreshedUser.displayName);
       changeEmail(refreshedUser.email);
+      changePhotoUrl(refreshedUser.photoURL);
     }
 
     return refreshedUser;

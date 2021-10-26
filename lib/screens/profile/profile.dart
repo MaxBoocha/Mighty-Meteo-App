@@ -17,6 +17,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.network(c.getPhotoUrl()),
             Obx(() => Text(
                   'Name: ${c.getName()}',
                   style: Theme.of(context).textTheme.bodyText1,
