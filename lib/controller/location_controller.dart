@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:mightymeteomap/utils/weather_icon_mapper.dart';
-//import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 
 // Controller GetX qui gérer la récupération d'information et les variables à afficher dans la page
 class LocationController extends GetxController {
@@ -54,8 +54,8 @@ class LocationController extends GetxController {
   // fonction qui es appelé à l'ouverture de la page météo
   @override
   void onInit() async {
-    /*await _determinePosition();
-    searchByLocation();*/
+    await _determinePosition();
+    searchByLocation();
     super.onInit();
   }
 
@@ -215,7 +215,7 @@ class LocationController extends GetxController {
 
   // fonction qui permet d'avoir la position GPS de l'utilisateur (longitude et latitude)
   // popup qui demande l'autorisation de l'utilisateur d'accéder à sa position GPS
-  /*Future<void> _determinePosition() async {
+  Future<void> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -239,5 +239,5 @@ class LocationController extends GetxController {
     Position position = await Geolocator.getCurrentPosition();
     changeLatitude(position.latitude.toDouble());
     changeLongitude(position.longitude.toDouble());
-  }*/
+  }
 }
