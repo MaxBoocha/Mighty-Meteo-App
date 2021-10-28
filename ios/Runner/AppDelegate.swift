@@ -1,4 +1,22 @@
 import UIKit
+import Firebase
+
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+  var window: UIWindow?
+
+  func application(_ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions:
+      [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    FirebaseApp.configure()
+
+    return true
+  }
+}
+
+/*import UIKit
 import Flutter
 
 @UIApplicationMain
@@ -10,4 +28,4 @@ import Flutter
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-}
+}*/
