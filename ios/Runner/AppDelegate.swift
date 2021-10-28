@@ -1,4 +1,4 @@
-import UIKit
+/*import UIKit
 import Firebase
 
 
@@ -14,9 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
-}
+}*/
 
-/*import UIKit
+import UIKit
 import Flutter
 
 @UIApplicationMain
@@ -28,4 +28,4 @@ import Flutter
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-}*/
+}
