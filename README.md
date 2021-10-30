@@ -1,16 +1,22 @@
 # mightymeteoapp
 
-A new Flutter project.
+Build the App :
 
-## Getting Started
+You must install Flutter at least 2.5.0.
+Follow this link to install properly flutter :
+https://flutter.dev/docs/get-started/install
 
-This project is a starting point for a Flutter application.
+When it's done, open a terminal at the root of the app.
+Do the following command "flutter pub get", this command will install the differents packages need by the app.
+Now you are ready to build the app.
 
-A few resources to get you started if this is your first Flutter project:
+Build Android :
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+At the root of the project : flutter build apk
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Build Ios :
+This build will fail if it isn't done on a mac.
+You need to install Cocoapods.
+Move to the directory ios.
+Do the following command "pod install".
+Move back to the root of the project then : flutter build ios
