@@ -17,7 +17,10 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(c.getPhotoUrl()),
+            Container(
+                alignment: Alignment.center, // use aligment
+                child: Obx(() => Image.network(c.getPhotoUrl(),
+                    height: 350, width: 400, fit: BoxFit.cover))),
             Obx(() => Text(
                   'Name: ${c.getName()}',
                   style: Theme.of(context).textTheme.bodyText1,
@@ -87,6 +90,12 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
+            ElevatedButton(
+              child: const Text('Take a Picture'),
+              onPressed: () {
+                Get.toNamed("/takepicture");
+              },
+            )
           ],
         ),
       ),

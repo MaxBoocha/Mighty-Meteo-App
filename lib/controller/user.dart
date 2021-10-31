@@ -78,7 +78,8 @@ class UserController extends GetxController {
       );
       user = userCredential.user;
       await user!.updateDisplayName(name);
-      await user.updatePhotoURL('https://i.imgur.com/KyVwI6r.jpeg');
+      await user.updatePhotoURL(
+          'https://pst-pop.ch/wp-content/uploads/2020/04/173-1731325_person-icon-png-transparent-png.png');
       await user.reload();
       user = auth.currentUser;
       if (user != null) {
@@ -97,6 +98,22 @@ class UserController extends GetxController {
       changeErrorMessage(e);
     }
     return user;
+  }
+
+  Future updatePictureUser({
+    String? urlPP,
+    User? user,
+  }) async {
+    // ignore: prefer_conditional_assignment
+    if (urlPP == null)
+      // ignore: curly_braces_in_flow_control_structures
+      urlPP =
+          "https://pst-pop.ch/wp-content/uploads/2020/04/173-1731325_person-icon-png-transparent-png.png";
+    if (user != null) {
+      await user.updatePhotoURL(urlPP);
+      await user.reload();
+      refreshUser(user);
+    }
   }
 
   Future<User?> signInUsingEmailPassword({

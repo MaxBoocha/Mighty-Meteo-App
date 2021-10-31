@@ -7,25 +7,28 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Row(
-        children: [
-          ElevatedButton(
-            child: const Text('Login Page'),
-            onPressed: () {
-              Get.toNamed("/login");
-            },
+        appBar: AppBar(
+          title: const Text('Mighty Meteo App'),
+        ),
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: const Text('Login Page'),
+                onPressed: () {
+                  Get.toNamed("/login");
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Meteo Page'),
+                onPressed: () {
+                  Get.toNamed("/meteo");
+                },
+              ),
+            ],
           ),
-          ElevatedButton(
-            child: const Text('Meteo Page'),
-            onPressed: () {
-              Get.toNamed("/meteo");
-            },
-          )
-        ],
-      ),
-    );
+        ));
   }
 }

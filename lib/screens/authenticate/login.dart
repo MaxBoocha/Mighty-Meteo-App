@@ -6,6 +6,7 @@ import 'package:mightymeteomap/controller/user.dart';
 // Page principale de la page Météo
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
+
   final UserController c = Get.put(UserController());
 
   final _formKey = GlobalKey<FormState>();
